@@ -1,53 +1,63 @@
 package br.com.worldBestEncrypter.encrypters;
 
-public class CaesarCipher implements Encrypter {
-    @Override
-    public String encrypt(String textToEncrypt, int chave) {
-        StringBuilder resultado = new StringBuilder();
+public class CaesarCipher implements Encrypt {
 
-        // Ajustar a chave para manter-se dentro do intervalo [0, 25]
-        chave = chave % 26;
+    private int key;
+    public CaesarCipher(int key){
+        this.setKey(key);
+    }
+
+    public void setKey(int key){
+        key = key % 26;
+        this.key = key;
+    };
+
+    public int getKey(){
+        return this.key;
+    }
+
+
+    @Override
+    public String encrypt(String textToEncrypt) {
+        StringBuilder result = new StringBuilder();
 
         // Loop sobre cada caractere da frase
         for (int i = 0; i < textToEncrypt.length(); i++) {
-            char caractere = textToEncrypt.charAt(i);
+            char curChar = textToEncrypt.charAt(i);
 
             // Verificar se o caractere é uma letra do alfabeto
-            if (Character.isLetter(caractere)) {
+            if (Character.isLetter(curChar)) {
                 // Converter o caractere para minúscula para facilitar o cálculo
-                char base = Character.isLowerCase(caractere) ? 'a' : 'A';
+                char base = Character.isLowerCase(curChar) ? 'a' : 'A';
                 // Aplicar o deslocamento de acordo com a chave
-                caractere = (char) (((caractere - base + chave) % 26) + base);
+                curChar = (char) (((curChar - base + this.key) % 26) + base);
             }
             // Adicionar o caractere resultante ao resultado final
-            resultado.append(caractere);
+            result.append(curChar);
         }
 
-        return resultado.toString();
+        return result.toString();
     }
 
     @Override
-    public String decrypt(String textToDecrypt, int chave) {
-        StringBuilder resultado = new StringBuilder();
-
-        // Ajustar a chave para manter-se dentro do intervalo [0, 25]
-        chave = chave % 26;
+    public String decrypt(String textToDecrypt) {
+        StringBuilder result = new StringBuilder();
 
         // Loop sobre cada caractere da frase
         for (int i = 0; i < textToDecrypt.length(); i++) {
-            char caractere = textToDecrypt.charAt(i);
+            char curChar = textToDecrypt.charAt(i);
 
             // Verificar se o caractere é uma letra do alfabeto
-            if (Character.isLetter(caractere)) {
+            if (Character.isLetter(curChar)) {
                 // Converter o caractere para minúscula para facilitar o cálculo
-                char base = Character.isLowerCase(caractere) ? 'a' : 'A';
+                char base = Character.isLowerCase(curChar) ? 'a' : 'A';
                 // Para descriptar, subtrair a chave e adicionar 26 para evitar valores negativos
-                caractere = (char) (((caractere - base - chave + 26) % 26) + base);
+                curChar = (char) (((curChar - base - this.key + 26) % 26) + base);
             }
             // Adicionar o caractere resultante ao resultado final
-            resultado.append(caractere);
+            result.append(curChar);
         }
 
-        return resultado.toString();
+        return result.toString();
     }
 }
