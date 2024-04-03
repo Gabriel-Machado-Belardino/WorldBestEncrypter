@@ -1,5 +1,6 @@
 package br.com.worldBestEncrypter.menu;
 
+import br.com.worldBestEncrypter.SystemErrors.InvalidCharacterException;
 import br.com.worldBestEncrypter.encrypters.Morse;
 
 import javax.swing.*;
@@ -21,17 +22,25 @@ public class MorseMenu {
         encryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String currentText = textArea.getText();
-                String currentTextEncrypted = morseEncrypt.encrypt(currentText);
-                textArea.setText(currentTextEncrypted);
+                try {
+                    String currentText = textArea.getText();
+                    String currentTextEncrypted = morseEncrypt.encrypt(currentText);
+                    textArea.setText(currentTextEncrypted);
+                } catch (InvalidCharacterException error){
+                    FrameUtils.DisplayAlertMessage(error.getMessage());
+                }
             }
         });
         decryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String currentText = textArea.getText();
-                String decryptedText = morseEncrypt.decrypt(currentText);
-                textArea.setText(decryptedText);
+                try{
+                    String currentText = textArea.getText();
+                    String decryptedText = morseEncrypt.decrypt(currentText);
+                    textArea.setText(decryptedText);
+                } catch (InvalidCharacterException error){
+                    FrameUtils.DisplayAlertMessage(error.getMessage());
+                }
             }
         });
 

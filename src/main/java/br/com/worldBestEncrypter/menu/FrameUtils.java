@@ -48,4 +48,8 @@ public class FrameUtils {
         JTextArea textArea = new JTextArea();
         return textArea;
     }
+
+    public static void DisplayAlertMessage(String message){
+        JOptionPane.showMessageDialog(null,message,"AVISO", JOptionPane.WARNING_MESSAGE);
+    }
 }

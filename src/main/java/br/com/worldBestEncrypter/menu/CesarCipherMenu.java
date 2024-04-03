@@ -1,5 +1,6 @@
 package br.com.worldBestEncrypter.menu;
 
+import br.com.worldBestEncrypter.SystemErrors.InvalidCharacterException;
 import br.com.worldBestEncrypter.encrypters.CaesarCipher;
 
 import javax.swing.*;
@@ -28,21 +29,29 @@ public class CesarCipherMenu {
         encryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String currentText = textArea.getText();
-                int currentKey = (int) comboBox.getSelectedIndex();
-                caesarCipherEncrypt.setKey(currentKey);
-                String currentTextEncrypted = caesarCipherEncrypt.encrypt(currentText);
-                textArea.setText(currentTextEncrypted);
+                try {
+                    String currentText = textArea.getText();
+                    int currentKey = (int) comboBox.getSelectedIndex();
+                    caesarCipherEncrypt.setKey(currentKey);
+                    String currentTextEncrypted = caesarCipherEncrypt.encrypt(currentText);
+                    textArea.setText(currentTextEncrypted);
+                } catch (InvalidCharacterException error){
+                    FrameUtils.DisplayAlertMessage(error.getMessage());
+                }
             }
         });
         decryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String currentText = textArea.getText();
-                int currentKey = (int) comboBox.getSelectedIndex();
-                caesarCipherEncrypt.setKey(currentKey);
-                String decryptedText = caesarCipherEncrypt.decrypt(currentText);
-                textArea.setText(decryptedText);
+                try {
+                    String currentText = textArea.getText();
+                    int currentKey = (int) comboBox.getSelectedIndex();
+                    caesarCipherEncrypt.setKey(currentKey);
+                    String decryptedText = caesarCipherEncrypt.decrypt(currentText);
+                    textArea.setText(decryptedText);
+                }catch (InvalidCharacterException error){
+                    FrameUtils.DisplayAlertMessage(error.getMessage());
+                    }
             }
         });
 

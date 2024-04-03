@@ -1,5 +1,7 @@
 package br.com.worldBestEncrypter.encrypters;
 
+import br.com.worldBestEncrypter.SystemErrors.InvalidCharacterException;
+
 import java.util.HashMap;
 
 public class Morse implements Encrypt {
@@ -56,7 +58,7 @@ public class Morse implements Encrypt {
     }
 
     @Override
-    public String encrypt(String textToDecrypt) {
+    public String encrypt(String textToDecrypt) throws InvalidCharacterException{
         StringBuilder result = new StringBuilder();
         // Itera sobre cada caractere no texto a ser decifrado
         for (int i = 0; i < textToDecrypt.length(); i++) {
@@ -67,7 +69,7 @@ public class Morse implements Encrypt {
                 // Se o caractere existir, obtém a representação em código Morse correspondente e adiciona ao resultado
                 result.append(charToMorse.get(curChar) + " ");
             } else {
-                result.append("/ ");
+                throw new InvalidCharacterException("O carácter [" + String.valueOf(curChar) + "] não é valido para criptografar em morse");
             }
         }
         // Retorna o texto descriptado
@@ -75,7 +77,7 @@ public class Morse implements Encrypt {
     }
 
     @Override
-    public String decrypt(String textToEncrypt) {
+    public String decrypt(String textToEncrypt) throws InvalidCharacterException {
         StringBuilder result = new StringBuilder();
         // Divide o texto em palavras usando espaço como delimitador
         String[] words = textToEncrypt.split(" ");
@@ -87,7 +89,7 @@ public class Morse implements Encrypt {
                 result.append(morseToChar.get(word));
             } else {
                 // Se a palavra não existir, adiciona um espaço ao resultado
-                result.append(" ");
+                throw new InvalidCharacterException("O codigo [" + word + "] não é valido");
             }
         }
         // Retorna o texto encripitado

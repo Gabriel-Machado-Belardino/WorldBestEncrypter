@@ -1,5 +1,7 @@
 package br.com.worldBestEncrypter.encrypters;
 
+import br.com.worldBestEncrypter.SystemErrors.InvalidCharacterException;
+
 public class CaesarCipher implements Encrypt {
 
     private int key;
@@ -18,7 +20,7 @@ public class CaesarCipher implements Encrypt {
 
 
     @Override
-    public String encrypt(String textToEncrypt) {
+    public String encrypt(String textToEncrypt) throws InvalidCharacterException {
         StringBuilder result = new StringBuilder();
 
         // Loop sobre cada caractere da frase
@@ -31,6 +33,8 @@ public class CaesarCipher implements Encrypt {
                 char base = Character.isLowerCase(curChar) ? 'a' : 'A';
                 // Aplicar o deslocamento de acordo com a chave
                 curChar = (char) (((curChar - base + this.key) % 26) + base);
+            } else {
+                throw new InvalidCharacterException("O carácter [" + String.valueOf(curChar) + "] não é valido para criptografar em cifra de ceasar");
             }
             // Adicionar o caractere resultante ao resultado final
             result.append(curChar);
@@ -40,7 +44,7 @@ public class CaesarCipher implements Encrypt {
     }
 
     @Override
-    public String decrypt(String textToDecrypt) {
+    public String decrypt(String textToDecrypt) throws InvalidCharacterException{
         StringBuilder result = new StringBuilder();
 
         // Loop sobre cada caractere da frase
@@ -53,6 +57,8 @@ public class CaesarCipher implements Encrypt {
                 char base = Character.isLowerCase(curChar) ? 'a' : 'A';
                 // Para descriptar, subtrair a chave e adicionar 26 para evitar valores negativos
                 curChar = (char) (((curChar - base - this.key + 26) % 26) + base);
+            } else {
+                throw new InvalidCharacterException("O carácter [" + String.valueOf(curChar) + "] não é valido para descriptografar em cifra de ceasar");
             }
             // Adicionar o caractere resultante ao resultado final
             result.append(curChar);
