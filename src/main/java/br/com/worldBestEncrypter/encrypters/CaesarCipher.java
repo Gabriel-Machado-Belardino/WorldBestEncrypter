@@ -30,9 +30,16 @@ public class CaesarCipher implements Encrypt {
             // Verificar se o caractere é uma letra do alfabeto
             if (Character.isLetter(curChar)) {
                 // Converter o caractere para minúscula para facilitar o cálculo
-                char base = Character.isLowerCase(curChar) ? 'a' : 'A';
-                // Aplicar o deslocamento de acordo com a chave
-                char encryptedChar = (char) (((curChar - base + this.key) % 26) + base);
+                char base;
+                char encryptedChar;
+
+                if(curChar < 'Ç') {
+                    base = Character.isLowerCase(curChar) ? 'a' : 'A';
+                    encryptedChar = (char) (((curChar - base + this.key) % 26) + base);
+                } else {
+                    encryptedChar = curChar;
+                }
+
                 result.append(encryptedChar);
             }else if (curChar == ' '){
                 result.append(curChar);
@@ -55,9 +62,16 @@ public class CaesarCipher implements Encrypt {
             // Verificar se o caractere é uma letra do alfabeto
             if (Character.isLetter(curChar)) {
                 // Converter o caractere para minúscula para facilitar o cálculo
-                char base = Character.isLowerCase(curChar) ? 'a' : 'A';
-                // Para descriptar, subtrair a chave e adicionar 26 para evitar valores negativos
-                char decryptedChar = (char) (((curChar - base - this.key + 26) % 26) + base);
+                char base;
+                char decryptedChar;
+
+                if(curChar < 'Ç') {
+                    base = Character.isLowerCase(curChar) ? 'a' : 'A';
+                    decryptedChar = (char) (((curChar - base - this.key + 26) % 26) + base);
+                } else {
+                    decryptedChar = curChar;
+                }
+
                 result.append(decryptedChar);
             }else if (curChar == ' '){
                 result.append(curChar);
