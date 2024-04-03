@@ -10,21 +10,28 @@ public class MainMenu {
 
             JFrame f = FrameUtils.generateFrame("Melhor Encriptografador/Criptogrador do mundo", "Melhor Encriptografador/Criptogrador do mundo");
 
-            JButton encryptButton = FrameUtils.generateSystemButton("MORSE");
-            JButton decryptButton = FrameUtils.generateSystemButton("CESAR CYPHER");
-            encryptButton.addActionListener(new ActionListener() {
+            JButton morseButton = FrameUtils.generateSystemButton("MORSE");
+            JButton cesarCipherButton = FrameUtils.generateSystemButton("CESAR CIPHER");
+            morseButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     f.setVisible(false);
                     final MorseMenu menu = new MorseMenu(f);
                 }
+            });
 
+            cesarCipherButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    f.setVisible(false);
+                    final CesarCipherMenu menu = new CesarCipherMenu(f);
+                }
             });
 
 
             JPanel panelButtons = new JPanel();
-            panelButtons.add(encryptButton);
-            panelButtons.add(decryptButton);
+            panelButtons.add(morseButton);
+            panelButtons.add(cesarCipherButton);
 
             f.add(panelButtons, BorderLayout.CENTER);
 
