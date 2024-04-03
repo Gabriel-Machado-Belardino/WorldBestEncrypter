@@ -1,5 +1,7 @@
 package br.com.worldBestEncrypter.menu;
 
+import br.com.worldBestEncrypter.encrypters.CaesarCipher;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,16 +23,26 @@ public class CesarCipherMenu {
         JButton encryptButton = FrameUtils.generateSystemButton("Encrypt");
         JButton decryptButton = FrameUtils.generateSystemButton("Decrypt");
 
+        CaesarCipher caesarCipherEncrypt = new CaesarCipher(1);
+
         encryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.setText("ENCRIPTOGRAFADO");
+                String currentText = textArea.getText();
+                int currentKey = (int) comboBox.getSelectedIndex();
+                caesarCipherEncrypt.setKey(currentKey);
+                String currentTextEncrypted = caesarCipherEncrypt.encrypt(currentText);
+                textArea.setText(currentTextEncrypted);
             }
         });
         decryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.setText("DESCRIPTOGRAFADO");
+                String currentText = textArea.getText();
+                int currentKey = (int) comboBox.getSelectedIndex();
+                caesarCipherEncrypt.setKey(currentKey);
+                String decryptedText = caesarCipherEncrypt.decrypt(currentText);
+                textArea.setText(decryptedText);
             }
         });
 

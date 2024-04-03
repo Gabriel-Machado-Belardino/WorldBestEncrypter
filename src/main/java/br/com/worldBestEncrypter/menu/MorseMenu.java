@@ -1,5 +1,7 @@
 package br.com.worldBestEncrypter.menu;
 
+import br.com.worldBestEncrypter.encrypters.Morse;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,16 +16,22 @@ public class MorseMenu {
         JButton encryptButton = FrameUtils.generateSystemButton("Encrypt");
         JButton decryptButton = FrameUtils.generateSystemButton("Decrypt");
 
+        Morse morseEncrypt = new Morse();
+
         encryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.setText("ENCRIPTOGRAFADO");
+                String currentText = textArea.getText();
+                String currentTextEncrypted = morseEncrypt.encrypt(currentText);
+                textArea.setText(currentTextEncrypted);
             }
         });
         decryptButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea.setText("DESCRIPTOGRAFADO");
+                String currentText = textArea.getText();
+                String decryptedText = morseEncrypt.decrypt(currentText);
+                textArea.setText(decryptedText);
             }
         });
 

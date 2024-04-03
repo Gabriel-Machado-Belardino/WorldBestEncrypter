@@ -65,7 +65,7 @@ public class Morse implements Encrypt {
             // Verifica se o caractere existe no mapa charToMorse
             if (charToMorse.containsKey(curChar)) {
                 // Se o caractere existir, obtém a representação em código Morse correspondente e adiciona ao resultado
-                result.append(charToMorse.get(curChar)).append(" ");
+                result.append(charToMorse.get(curChar) + " ");
             } else {
                 result.append("/ ");
             }
