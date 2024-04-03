@@ -32,12 +32,13 @@ public class CaesarCipher implements Encrypt {
                 // Converter o caractere para minúscula para facilitar o cálculo
                 char base = Character.isLowerCase(curChar) ? 'a' : 'A';
                 // Aplicar o deslocamento de acordo com a chave
-                curChar = (char) (((curChar - base + this.key) % 26) + base);
+                char encryptedChar = (char) (((curChar - base + this.key) % 26) + base);
+                result.append(encryptedChar);
+            }else if (curChar == ' '){
+                result.append(curChar);
             } else {
                 throw new InvalidCharacterException("O carácter [" + String.valueOf(curChar) + "] não é valido para criptografar em cifra de ceasar");
             }
-            // Adicionar o caractere resultante ao resultado final
-            result.append(curChar);
         }
 
         return result.toString();
@@ -56,12 +57,14 @@ public class CaesarCipher implements Encrypt {
                 // Converter o caractere para minúscula para facilitar o cálculo
                 char base = Character.isLowerCase(curChar) ? 'a' : 'A';
                 // Para descriptar, subtrair a chave e adicionar 26 para evitar valores negativos
-                curChar = (char) (((curChar - base - this.key + 26) % 26) + base);
-            } else {
+                char decryptedChar = (char) (((curChar - base - this.key + 26) % 26) + base);
+                result.append(decryptedChar);
+            }else if (curChar == ' '){
+                result.append(curChar);
+            }
+            else {
                 throw new InvalidCharacterException("O carácter [" + String.valueOf(curChar) + "] não é valido para descriptografar em cifra de ceasar");
             }
-            // Adicionar o caractere resultante ao resultado final
-            result.append(curChar);
         }
 
         return result.toString();
