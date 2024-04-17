@@ -58,12 +58,12 @@ public class Morse implements Encrypt {
     }
 
     @Override
-    public String encrypt(String textToDecrypt) throws InvalidCharacterException{
+    public String encrypt(String textToEncrypt) throws InvalidCharacterException{
         StringBuilder result = new StringBuilder();
         // Itera sobre cada caractere no texto a ser decifrado
-        for (int i = 0; i < textToDecrypt.length(); i++) {
+        for (int i = 0; i < textToEncrypt.length(); i++) {
             // Converte o caractere para maiúsculo para garantir correspondência com o mapa charToMorse
-            char curChar = Character.toUpperCase(textToDecrypt.charAt(i));
+            char curChar = Character.toUpperCase(textToEncrypt.charAt(i));
             // Verifica se o caractere existe no mapa charToMorse
             if (charToMorse.containsKey(curChar)) {
                 // Se o caractere existir, obtém a representação em código Morse correspondente e adiciona ao resultado
@@ -77,10 +77,10 @@ public class Morse implements Encrypt {
     }
 
     @Override
-    public String decrypt(String textToEncrypt) throws InvalidCharacterException {
+    public String decrypt(String textToDecrypt) throws InvalidCharacterException {
         StringBuilder result = new StringBuilder();
         // Divide o texto em palavras usando espaço como delimitador
-        String[] words = textToEncrypt.split(" ");
+        String[] words = textToDecrypt.split(" ");
         // Itera sobre cada palavra no texto
         for (String word : words) {
             // Verifica se a palavra existe no mapa morseToChar
